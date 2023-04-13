@@ -1,0 +1,39 @@
+.message p {
+  width: 100%;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: #000000;
+  overflow-wrap:normal;
+}
+
+.footer textarea{
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: #000000;
+  overflow-wrap:normal;
+}
+
+.footer textarea::placeholder{
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: #000000;
+}
+
+m-bold{
+  font-weight: 700 !important;
+  margin-right: 3px;
+  margin-left: 3px;
+}
+
+m-time{
+  color: #aaaaaa !important;
+}
