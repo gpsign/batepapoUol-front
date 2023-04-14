@@ -6,6 +6,7 @@
   line-height: 16px;
   color: #000000;
   overflow-wrap: break-word;
+  word-break: break-all;
 }
 
 .footer textarea{

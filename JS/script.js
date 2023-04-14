@@ -55,31 +55,37 @@ function render(chatContent) {
   chat.innerHTML = "";
   chatContent.data.forEach(applyToChat);
   if (first) {
-    chat.scrollTop = chat.scrollHeight;
+    chat.lastChild.scrollIntoView()
     first = false;
-  } else if (chat.scrollTop > 7200) chat.scrollTop = chat.scrollHeight;
+  } else if (chat.scrollTop == chat.scrollHeight)chat.lastChild.scrollIntoView();
+}
+
+function getMessageFromType(msgRaw) {
+  if (msgRaw.type == "status") {
+    return `<li class="notification message" data-test="message">
+              <p>
+                <m-time>(${msgRaw.time})</m-time> 
+                <m-bold>${msgRaw.from} </m-bold>
+              `;
+  } else if (msgRaw.type == "private_message") {
+    return `<li class="private message" data-test="message">
+              <p>
+                <m-time>(${msgRaw.time})</m-time>
+                <m-bold>${msgRaw.from}</m-bold>reservadamente para<m-bold>${msgRaw.to}: </m-bold>
+              `;
+  } else {
+    return `<li class="message" data-test="message">
+              <p>
+                <m-time>(${msgRaw.time})</m-time> <m-bold>${msgRaw.from}</m-bold> 
+                para
+                <m-bold>Todos: </m-bold>
+              `;
+  }
 }
 
 function applyToChat(info) {
-  let bp = "";
-
-  if (info.type == "status") {
-    bp = `<div class="notification message" data-test="message">
-            <ul><li>
-              <m-time>(${info.time})</m-time> 
-              <m-bold>${info.from} </m-bold>`;
-  } else if (info.type == "private_message") {
-    bp = `<div class="private message" data-test="message">
-    <ul><li>
-              <m-time>(${info.time})</m-time>
-              <m-bold>${info.from}</m-bold>reservadamente para<m-bold>${info.to}: </m-bold>`;
-  } else {
-    bp = `<div class="message" data-test="message">
-            <ul><li>
-              <m-time>(${info.time})</m-time> <m-bold>${info.from}</m-bold> para
-              <m-bold>Todos: </m-bold>`;
-  }
-  bp += info.text.replaceAll("\n", "<br>") + "</ul></div>";
+  let bp = getMessageFromType(info);
+  bp += info.text.replaceAll("\n", "<br>") + '</p>';
   chat.innerHTML += bp;
 }
 

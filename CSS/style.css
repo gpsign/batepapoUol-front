@@ -78,10 +78,9 @@ body {
   justify-content: center;
   align-items: center;
   top: 80px;
-  padding-top: 26px;
-  padding-bottom: 160px;
   width: 100vw;
   height: 100vh;
+  padding-bottom: 160px;
   overflow-y: scroll;
   overflow-x: hidden;
   background-color: #f3f3f3;
@@ -94,6 +93,7 @@ body {
 
 ul{
   list-style-type: none;
+  padding-top: 26px;
 }
 
 .message {
@@ -103,9 +103,14 @@ ul{
   padding-top: 15px;
   padding-bottom: 15px;
   display: flex;
+  flex-wrap: wrap;
   background-color: #ffffff;
   border-radius: 2px;
   scrollbar-width: none;
+}
+
+.info{
+  display: flex;
 }
 
 .notification {
