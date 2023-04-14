@@ -63,19 +63,19 @@ function render(chatContent) {
 function getMessageFromType(msgRaw) {
   if (msgRaw.type == "status") {
     return `<li class="notification message" data-test="message">
-              <p>
+              
                 <m-time>(${msgRaw.time})</m-time> 
                 <m-bold>${msgRaw.from} </m-bold>
               `;
   } else if (msgRaw.type == "private_message") {
     return `<li class="private message" data-test="message">
-              <p>
+              
                 <m-time>(${msgRaw.time})</m-time>
                 <m-bold>${msgRaw.from}</m-bold>reservadamente para<m-bold>${msgRaw.to}: </m-bold>
               `;
   } else {
     return `<li class="message" data-test="message">
-              <p>
+              
                 <m-time>(${msgRaw.time})</m-time> <m-bold>${msgRaw.from}</m-bold> 
                 para
                 <m-bold>Todos: </m-bold>
@@ -85,7 +85,7 @@ function getMessageFromType(msgRaw) {
 
 function applyToChat(info) {
   let bp = getMessageFromType(info);
-  bp += info.text.replaceAll("\n", "<br>") + '</p>';
+  bp += info.text.replaceAll("\n", "<br>");
   chat.innerHTML += bp;
 }
 
