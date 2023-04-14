@@ -89,7 +89,7 @@ body {
 }
 
 .message {
-  width: 100vh;
+  width: 375px;
   margin-bottom: 4px;
   padding: 8px;
   padding-top: 15px;

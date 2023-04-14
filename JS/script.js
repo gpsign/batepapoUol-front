@@ -16,7 +16,7 @@ function login() {
   );
 
   promLogin.then(online);
-  promLogin.catch(window.location.reload);
+  promLogin.catch(login);
 }
 
 function online(ans) {
@@ -80,5 +80,5 @@ function sendMessage(){
 
     let promSend = axios.post("https://mock-api.driven.com.br/api/vm/uol/messages", msg);
     promSend.then(getData);
-    promSend.catch(window.location.reload);
+    promSend.catch(() => window.location.reload(true));
 }
