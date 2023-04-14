@@ -1,10 +1,21 @@
 axios.defaults.headers.common["Authorization"] = "6SlanhOQ22CQz43wqstq4NsK";
 const chat = document.querySelector(".chat");
 const txt = document.querySelector("textarea");
+var holdingCtrl = false;
 var user = {
   name: "",
 };
 var first = true;
+
+txt.addEventListener('keydown', function(pressed){
+  if(pressed.key === 'Control')holdingCtrl = true;
+  else if(pressed.key === 'Enter' && !holdingCtrl)sendMessage();
+  else if(pressed.key === 'Enter' && holdingCtrl)txt.value += '\n';
+});
+
+txt.addEventListener('keyup', function(released){
+  if(released.key == 'Control')holdingCtrl = false;
+});
 
 login();
 
@@ -51,21 +62,18 @@ function applyToChat(info) {
 
   if (info.type == "status") {
 
-    bp = `<div class="message notification">
-    <p data-test="message">
+    bp = `<div class="message notification" data-test="message">
         <m-time>(${info.time})</m-time> <m-bold>${info.from} </m-bold>`;
   } else if (info.type == "private_message") {
-    bp = `<div class="message private">
-    <p data-test="message">
+    bp = `<div class="message private" data-test="message">
     <m-time>(${info.time})</m-time>
     <m-bold>${info.from}</m-bold>reservadamente para<m-bold>${info.to}: </m-bold>`;
   } else{
-    bp = `<div class="message">
-              <p data-test="message">
+    bp = `<div class="message" data-test="message">
                   <m-time>(${info.time})</m-time> <m-bold>${info.from}</m-bold> para
                   <m-bold>Todos: </m-bold>`;
   }
-  bp += info.text + "</p></div>";
+  bp += info.text + "</div>";
   chat.innerHTML += bp;
 }
 
