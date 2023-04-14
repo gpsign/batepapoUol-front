@@ -1,8 +1,10 @@
 axios.defaults.headers.common["Authorization"] = "6SlanhOQ22CQz43wqstq4NsK";
 const chat = document.querySelector(".chat");
+const txt = document.querySelector("textarea");
 var user = {
   name: "",
 };
+var first = true;
 
 login();
 
@@ -22,6 +24,7 @@ function online(ans) {
     () => axios.post("https://mock-api.driven.com.br/api/vm/uol/status", user),
     5000
   );
+  getData();
   setInterval(getData, 3000);
 }
 
@@ -35,30 +38,46 @@ function getData() {
 
 function render(chatContent) {
   chat.innerHTML = "";
-  for (let i = 0; i < chatContent.data.length; i++) {
-    sendChat(chatContent.data[i]);
+  chatContent.data.forEach(applyToChat);
+  if(first){
+    chat.scrollTop = chat.scrollHeight;
+    first = false;
   }
-  if (chat.scrollTop > 7200) chat.scrollTop = chat.scrollHeight;
+  else if (chat.scrollTop > 7200) chat.scrollTop = chat.scrollHeight;
 }
 
-function sendChat(info) {
-  let skel = "";
+function applyToChat(info) {
+  let bp = "";
 
   if (info.type == "status") {
-    skel = `<div class="message notification">
+    bp = `<div class="message notification" data-test="message">
     <p>
         <m-time>(${info.time})</m-time> <m-bold>${info.from} </m-bold>`;
-  } else if (info.to !== "Todos") {
-    skel = `<div class="message private">
+  } else if (info.type == "private_message") {
+    bp = `<div class="message private" data-test="message">
     <p>
     <m-time>(${info.time})</m-time>
     <m-bold>${info.from}</m-bold>reservadamente para<m-bold>${info.to}: </m-bold>`;
-  } else {
-    skel = `<div class="message">
+  } else{
+    bp = `<div class="message" data-test="message">
               <p>
                   <m-time>(${info.time})</m-time> <m-bold>${info.from}</m-bold> para
                   <m-bold>Todos: </m-bold>`;
   }
-  skel += info.text + "</p></div>";
-  chat.innerHTML += skel;
+  bp += info.text + "</p></div>";
+  chat.innerHTML += bp;
+}
+
+function sendMessage(){
+    let msg = {
+        from: user.name,
+        to: "Todos",
+        text: txt.value,
+        type: "message"
+    }
+    txt.value = '';
+
+    let promSend = axios.post("https://mock-api.driven.com.br/api/vm/uol/messages", msg);
+    promSend.then(getData);
+    promSend.catch(window.location.reload);
 }

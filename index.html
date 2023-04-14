@@ -17,12 +17,12 @@
   </head>
   <body>
     <div class="header fixed">
-      <img src="logo.svg" alt="" />
+      <img src="logo.svg" alt=""/>
       <ion-icon name="people"></ion-icon>
     </div>
     <div class="footer fixed">
-      <textarea placeholder="Escreva aqui..."></textarea>
-      <ion-icon name="paper-plane-outline"></ion-icon>
+      <textarea data-test="input-message" placeholder="Escreva aqui..."></textarea>
+      <button onclick="sendMessage()" data-test="send-message"><ion-icon name="paper-plane-outline"></ion-icon></button>
     </div>
    
     <div class="chat fixed">
