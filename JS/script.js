@@ -65,20 +65,21 @@ function applyToChat(info) {
 
   if (info.type == "status") {
     bp = `<div class="notification message" data-test="message">
-        <p>
-        <m-time>(${info.time})</m-time> <m-bold>${info.from} </m-bold>`;
+            <ul><li>
+              <m-time>(${info.time})</m-time> 
+              <m-bold>${info.from} </m-bold>`;
   } else if (info.type == "private_message") {
     bp = `<div class="private message" data-test="message">
-    <p>
-    <m-time>(${info.time})</m-time>
-    <m-bold>${info.from}</m-bold>reservadamente para<m-bold>${info.to}: </m-bold>`;
+    <ul><li>
+              <m-time>(${info.time})</m-time>
+              <m-bold>${info.from}</m-bold>reservadamente para<m-bold>${info.to}: </m-bold>`;
   } else {
     bp = `<div class="message" data-test="message">
-    <p>
-                  <m-time>(${info.time})</m-time> <m-bold>${info.from}</m-bold> para
-                  <m-bold>Todos: </m-bold>`;
+            <ul><li>
+              <m-time>(${info.time})</m-time> <m-bold>${info.from}</m-bold> para
+              <m-bold>Todos: </m-bold>`;
   }
-  bp += info.text.replaceAll('\n', '<br>') + "</p></div>";
+  bp += info.text.replaceAll("\n", "<br>") + "</ul></div>";
   chat.innerHTML += bp;
 }
 

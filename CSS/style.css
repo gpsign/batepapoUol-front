@@ -88,6 +88,14 @@ body {
   z-index: 0;
 }
 
+.message::-webkit-scrollbar{
+  display: none;
+}
+
+ul{
+  list-style-type: none;
+}
+
 .message {
   width: 375px;
   margin-bottom: 4px;
@@ -98,10 +106,6 @@ body {
   background-color: #ffffff;
   border-radius: 2px;
   scrollbar-width: none;
-}
-
-.message::-webkit-scrollbar{
-    display: none;
 }
 
 .notification {
