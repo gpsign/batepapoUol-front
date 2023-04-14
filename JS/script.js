@@ -16,7 +16,7 @@ function login() {
   );
 
   promLogin.then(online);
-  promLogin.catch(login);
+  promLogin.catch(window.location.reload);
 }
 
 function online(ans) {
@@ -50,17 +50,18 @@ function applyToChat(info) {
   let bp = "";
 
   if (info.type == "status") {
-    bp = `<div class="message notification" data-test="message">
-    <p>
+
+    bp = `<div class="message notification">
+    <p data-test="message">
         <m-time>(${info.time})</m-time> <m-bold>${info.from} </m-bold>`;
   } else if (info.type == "private_message") {
-    bp = `<div class="message private" data-test="message">
-    <p>
+    bp = `<div class="message private">
+    <p data-test="message">
     <m-time>(${info.time})</m-time>
     <m-bold>${info.from}</m-bold>reservadamente para<m-bold>${info.to}: </m-bold>`;
   } else{
-    bp = `<div class="message" data-test="message">
-              <p>
+    bp = `<div class="message">
+              <p data-test="message">
                   <m-time>(${info.time})</m-time> <m-bold>${info.from}</m-bold> para
                   <m-bold>Todos: </m-bold>`;
   }
