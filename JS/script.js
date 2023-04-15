@@ -61,19 +61,19 @@ function getMessageFromType(msgRaw) {
   if (msgRaw.type == "status") {
     return `<li class="notification message" data-test="message">
               <p>
-                <m-time>(${msgRaw.time})</m-time> 
-                <m-bold>${msgRaw.from} </m-bold>`;
+                <span class="time">(${msgRaw.time})</span> 
+                <span class="bold">${msgRaw.from} </span>`;
   } else if (msgRaw.type == "private_message") {
     return `<li class="private message" data-test="message">
               <p>
-                <m-time>(${msgRaw.time})</m-time>
-                <m-bold>${msgRaw.from}</m-bold>reservadamente para<m-bold>${msgRaw.to}: </m-bold>`;
+              <span class="time">(${msgRaw.time})</span> 
+              <span class="bold">${msgRaw.from}</span> reservadamente para<span class="bold">${msgRaw.to}: </span> `;
   } else {
     return `<li class="message" data-test="message">
               <p>
-                <m-time>(${msgRaw.time})</m-time> <m-bold>${msgRaw.from}</m-bold> 
+              <span class="time">(${msgRaw.time})</span> <span class="bold">${msgRaw.from}</span>
                 para
-                <m-bold>Todos: </m-bold>`;
+                <span class="bold">Todos: </span>`;
   }
 }
 

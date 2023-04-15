@@ -28,12 +28,12 @@
   color: #000000;
 }
 
-m-bold{
+.bold{
   font-weight: 700 !important;
   margin-right: 3px;
   margin-left: 3px;
 }
 
-m-time{
+.time{
   color: #aaaaaa !important;
 }
