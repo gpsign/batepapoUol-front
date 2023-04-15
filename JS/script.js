@@ -1,10 +1,28 @@
 axios.defaults.headers.common["Authorization"] = "6SlanhOQ22CQz43wqstq4NsK";
+
+const header = document.querySelector(".header");
+const footer = document.querySelector(".footer");
 const chat = document.querySelector(".chat");
 const txt = document.querySelector("textarea");
+const chatUl = document.querySelector(".chat ul");
+const loginWindow = document.querySelector(".loginWindow");
+const userNameInput = document.querySelector(".inputArea input");
+const userNameButton = document.querySelector(".inputArea button");
+const sidebar = document.querySelector(".sidebar");
+const usersList = document.querySelector(".usersList");
+
 var user = {
   name: "",
 };
-var first = true;
+var selectedUser = {
+  name: "",
+};
+var msg = {
+  from: "",
+  to: "Todos",
+  text: "",
+  type: "message",
+};
 
 txt.addEventListener("keydown", function (pressed) {
   if (pressed.key == "Enter" && !pressed.ctrlKey) {
@@ -12,7 +30,7 @@ txt.addEventListener("keydown", function (pressed) {
       sendMessage();
     }
 
-    pressed.preventDefault(); // Prevents the addition of a new line in the text field
+    pressed.preventDefault();
   }
   if (pressed.key == "Enter" && pressed.ctrlKey) {
     if (!pressed.repeat) {
@@ -21,20 +39,42 @@ txt.addEventListener("keydown", function (pressed) {
   }
 });
 
-login();
+function showSidebar() {
+  sidebar.classList.add("active");
+  header.classList.add("dark");
+  footer.classList.add("dark");
+  chat.classList.add("dark");
+}
+
+function hideSidebar() {
+  sidebar.classList.remove("active");
+  header.classList.remove("dark");
+  footer.classList.remove("dark");
+  chat.classList.remove("dark");
+}
 
 function login() {
-  user.name = prompt("Qual o seu nome?");
+  if (userNameInput.value === "") return;
+  userNameButton.disabled = true;
+  userNameButton.innerHTML = "Logando...";
+  user.name = userNameInput.value;
   let promLogin = axios.post(
     "https://mock-api.driven.com.br/api/vm/uol/participants",
     user
   );
 
   promLogin.then(online);
-  promLogin.catch(login);
+  promLogin.catch(() => {
+    alert("Usuario ja esta sendo usado");
+    userNameButton.disabled = false;
+    userNameButton.innerHTML = "Entrar";
+  });
 }
 
 function online(ans) {
+  msg.from = user.name;
+  userNameInput.value = "";
+  loginWindow.style.display = "none";
   setInterval(
     () => axios.post("https://mock-api.driven.com.br/api/vm/uol/status", user),
     5000
@@ -49,12 +89,58 @@ function getData() {
   );
   promData.then(render);
   promData.catch(() => alert("Erro"));
+
+  let promOnline = axios.get(
+    "https://mock-api.driven.com.br/api/vm/uol/participants"
+  );
+  promOnline.then(updateSidebar);
+  promOnline.catch(() => alert("Erro"));
 }
 
 function render(chatContent) {
-  chat.innerHTML = "";
+  chatUl.innerHTML = "";
   chatContent.data.forEach(applyToChat);
-  chat.scrollTop = chat.scrollHeight;
+  chatUl.lastChild.scrollIntoView();
+}
+
+function updateSidebar(onlineList) {
+  let validUser = false;
+  usersList.innerHTML = `<div class="Todos onlineUser" onclick="select(this)">
+    <ion-icon name="people"></ion-icon>
+    Todos
+    <ion-icon name="checkmark" class="check"></ion-icon>
+  </div>`;
+  onlineList.data.forEach((usr) => {
+    usersList.innerHTML += ` <div class="${usr.name} onlineUser" onclick="select(this)">
+        <ion-icon name="person-circle"></ion-icon>
+         ${usr.name}
+         <ion-icon name="checkmark" class="check"></ion-icon>
+      </div>`;
+  });
+  document.querySelectorAll(".onlineUser").forEach((usr) => {
+    if (usr.classList[0] === msg.to) {
+      usr.classList.add("selected");
+      validUser = true;
+    }
+  });
+  if (!validUser) msg.to = "Todos";
+}
+
+function select(clicked) {
+  let list = clicked.parentElement.classList[0];
+  let bfr = document.querySelector(`.${list} .selected`);
+
+  if (bfr !== null) bfr.classList.remove("selected");
+  clicked.classList.add("selected");
+
+  if (list === "usersList") {
+    selectedUser.name = clicked.classList[0];
+    msg.to = clicked.classList[0];
+  } else if (list === "privacy") {
+    if (clicked.classList[0] === "selectPublic") msg.type = "message";
+    else msg.type = "private_message";
+  }
+  console.log(msg);
 }
 
 function getMessageFromType(msgRaw) {
@@ -73,14 +159,21 @@ function getMessageFromType(msgRaw) {
               <p>
               <span class="time">(${msgRaw.time})</span> <span class="bold">${msgRaw.from}</span>
                 para
-                <span class="bold">Todos: </span>`;
+                <span class="bold">${msg.to}: </span>`;
   }
 }
 
 function applyToChat(info) {
   let bp = getMessageFromType(info);
-  bp += info.text.replaceAll("\n", "<br>") + "</p>";
-  chat.innerHTML += bp;
+  if (info.type === "private_message") {
+    if (info.to === user.name || info.from === user.name) {
+      bp += info.text.replaceAll("\n", "<br>") + "</p>";
+      chatUl.innerHTML += bp;
+    }
+  } else {
+    bp += info.text.replaceAll("\n", "<br>") + "</p>";
+    chatUl.innerHTML += bp;
+  }
 }
 
 function sendMessage() {
@@ -88,13 +181,12 @@ function sendMessage() {
     txt.value = "";
     return;
   }
-  let msg = {
-    from: user.name,
-    to: "Todos",
-    text: txt.value,
-    type: "message",
-  };
+
+  msg.text = txt.value;
+
   txt.value = "";
+
+  console.log(msg);
 
   let promSend = axios.post(
     "https://mock-api.driven.com.br/api/vm/uol/messages",

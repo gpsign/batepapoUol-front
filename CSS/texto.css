@@ -1,4 +1,45 @@
-.message{
+.inputArea input {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 16px;
+  color: #000000;
+  overflow-wrap: hide;
+}
+
+.inputArea button {
+  font-family: "Roboto";
+  font-size: 22px;
+  color: #656565;
+}
+
+.inputArea input::placeholder {
+  text-align: center;
+  font-size: 20px;
+  color: #aeaeae;
+}
+
+.sidebar{
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  color: #000000;
+}
+
+.title{
+  font-weight: 700;
+}
+
+.sidebar ion-icon{
+  font-size: 30px;
+  margin-left: 16px;
+}
+
+.message {
   font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
@@ -9,17 +50,17 @@
   word-break: break-all;
 }
 
-.footer textarea{
+.footer textarea {
   font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 16px;
   color: #000000;
-  overflow-wrap:normal;
+  overflow-wrap: normal;
 }
 
-.footer textarea::placeholder{
+.footer textarea::placeholder {
   font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
@@ -28,12 +69,12 @@
   color: #000000;
 }
 
-.bold{
+.bold {
   font-weight: 700 !important;
   margin-right: 3px;
   margin-left: 3px;
 }
 
-.time{
+.time {
   color: #aaaaaa !important;
 }

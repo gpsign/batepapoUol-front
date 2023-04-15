@@ -16,11 +16,18 @@
     />
   </head>
   <body>
+    <div class="loginWindow">
+      <img src="logo.svg" onclick="showSidebar()" />
+      <div class="inputArea">
+        <input placeholder="Digite seu nome" />
+        <button onclick="login()">Entrar</button>
+      </div>
+    </div>
     <div class="header fixed">
       <img src="logo.svg" alt="" />
-      <ion-icon name="people"></ion-icon>
+      <ion-icon name="people" onclick="showSidebar()"></ion-icon>
     </div>
-    <div class="footer fixed">
+    <div class="footer fixed" onclick="hideSidebar()">
       <textarea
         data-test="input-message"
         placeholder="Escreva aqui..."
@@ -29,7 +36,23 @@
         <ion-icon name="paper-plane-outline"></ion-icon>
       </button>
     </div>
-    <div class="chat fixed"><ul></ul></div>
+    <div class="sidebar">
+      <div class="title">Escolha um contato<br />para enviar mensagem:</div>
+      <div class="usersList">
+      </div>
+      <div class="title">Escolha a visibilidade:</div>
+      <div class="privacy">
+        <div class="selectPublic selected" onclick="select(this)">
+          <ion-icon name="lock-open"></ion-icon>Publico
+          <ion-icon name="checkmark" class="check"></ion-icon>
+        </div>
+        <div class="selectPrivate" onclick="select(this)">
+          <ion-icon name="lock-closed"></ion-icon>Privado
+          <ion-icon name="checkmark" class="check"></ion-icon>
+        </div>
+      </div>
+    </div>
+    <div class="chat fixed" onclick="hideSidebar()"><ul></ul></div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./JS/script.js"></script>
     <script
