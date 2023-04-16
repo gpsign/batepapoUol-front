@@ -10,6 +10,7 @@ const userNameInput = document.querySelector(".inputArea input");
 const userNameButton = document.querySelector(".inputArea button");
 const sidebar = document.querySelector(".sidebar");
 const usersList = document.querySelector(".usersList");
+const sending = document.querySelector(".sending");
 
 var user = {
   name: "",
@@ -23,6 +24,7 @@ var msg = {
   text: "",
   type: "message",
 };
+var priv = "publicamente";
 
 txt.addEventListener("keydown", function (pressed) {
   if (pressed.key == "Enter" && !pressed.ctrlKey) {
@@ -105,20 +107,22 @@ function render(chatContent) {
 
 function updateSidebar(onlineList) {
   let validUser = false;
-  usersList.innerHTML = `<div class="Todos onlineUser" onclick="select(this)">
+  usersList.innerHTML = `<div id="Todos" class="onlineUser" data-test="all" onclick="select(this)">
     <ion-icon name="people"></ion-icon>
     Todos
-    <ion-icon name="checkmark" class="check"></ion-icon>
+    <ion-icon data-test="check" name="checkmark" class="check"></ion-icon>
   </div>`;
   onlineList.data.forEach((usr) => {
-    usersList.innerHTML += ` <div class="${usr.name} onlineUser" onclick="select(this)">
+    if (usr.name !== user.name) {
+      usersList.innerHTML += `<div id="${usr.name}" class="onlineUser" data-test="participant" onclick="select(this)">
         <ion-icon name="person-circle"></ion-icon>
          ${usr.name}
-         <ion-icon name="checkmark" class="check"></ion-icon>
-      </div>`;
+         <ion-icon data-test="check" name="checkmark" class="check"></ion-icon>
+     </div>`;
+    }
   });
   document.querySelectorAll(".onlineUser").forEach((usr) => {
-    if (usr.classList[0] === msg.to) {
+    if (usr.id === msg.to) {
       usr.classList.add("selected");
       validUser = true;
     }
@@ -134,13 +138,18 @@ function select(clicked) {
   clicked.classList.add("selected");
 
   if (list === "usersList") {
-    selectedUser.name = clicked.classList[0];
-    msg.to = clicked.classList[0];
+    msg.to = clicked.id;
   } else if (list === "privacy") {
-    if (clicked.classList[0] === "selectPublic") msg.type = "message";
-    else msg.type = "private_message";
+    if (clicked.id === "selectPublic") {
+      msg.type = "message";
+      priv = "publicamente";
+    }
+    else {
+      msg.type = "private_message";
+      priv = "reservadamente";
+    }
   }
-  console.log(msg);
+  sending.innerHTML = `Enviando para ${msg.to} (${priv})`
 }
 
 function getMessageFromType(msgRaw) {
@@ -185,9 +194,6 @@ function sendMessage() {
   msg.text = txt.value;
 
   txt.value = "";
-
-  console.log(msg);
-
   let promSend = axios.post(
     "https://mock-api.driven.com.br/api/vm/uol/messages",
     msg
