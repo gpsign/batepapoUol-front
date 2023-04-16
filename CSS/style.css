@@ -87,7 +87,6 @@ body {
   width: 100vw;
   height: 80px;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: #ffffff;
@@ -95,13 +94,7 @@ body {
   z-index: 1;
 }
 
-.footerInput{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.footerInput textarea {
+.footer textarea {
   width: 300px;
   height: 30px;
   border: none;
@@ -109,11 +102,11 @@ body {
   outline: none;
 }
 
-.footerInput ion-icon {
+.footer ion-icon {
   font-size: 26px;
 }
 
-.footerInput button {
+.footer button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -125,12 +118,8 @@ body {
   border-radius: 100%;
 }
 
-.footerInput button:active {
+.footer button:active {
   transform: translateY(2px);
-}
-
-.sending{
-  width: 336px;
 }
 
 .chat {

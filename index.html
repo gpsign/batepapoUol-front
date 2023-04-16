@@ -17,18 +17,17 @@
   </head>
   <body>
     <div class="loginWindow">
-      <img src="logo.svg" />
+      <img src="logo.svg" onclick="showSidebar()" />
       <div class="inputArea">
-        <input placeholder="Digite seu nome" data-test="input-name"/>
-        <button data-test="send-name" onclick="login()" >Entrar</button>
+        <input placeholder="Digite seu nome" />
+        <button onclick="login()">Entrar</button>
       </div>
     </div>
     <div class="header fixed">
       <img src="logo.svg" alt="" />
-      <ion-icon data-test="open-participants" name="people" onclick="showSidebar()"></ion-icon>
+      <ion-icon name="people" onclick="showSidebar()"></ion-icon>
     </div>
     <div class="footer fixed" onclick="hideSidebar()">
-      <div class="footerInput">
       <textarea
         data-test="input-message"
         placeholder="Escreva aqui..."
@@ -37,23 +36,19 @@
         <ion-icon name="paper-plane-outline"></ion-icon>
       </button>
     </div>
-    <div class="sending" data-test="recipient">
-      Enviando para Todos (publicamente)
-    </div>
-    </div>
-    <div class="sidebar" data-test="overlay">
+    <div class="sidebar">
       <div class="title">Escolha um contato<br />para enviar mensagem:</div>
       <div class="usersList">
       </div>
       <div class="title">Escolha a visibilidade:</div>
       <div class="privacy">
-        <div id="selectPublic" class="selectPublic selected" data-test="public" onclick="select(this)">
+        <div class="selectPublic selected" onclick="select(this)">
           <ion-icon name="lock-open"></ion-icon>Publico
-          <ion-icon data-test="check" name="checkmark" class="check"></ion-icon>
+          <ion-icon name="checkmark" class="check"></ion-icon>
         </div>
-        <div id="selectPrivate" class="selectPrivate" data-test="private" onclick="select(this)">
+        <div class="selectPrivate" onclick="select(this)">
           <ion-icon name="lock-closed"></ion-icon>Privado
-          <ion-icon data-test="check" name="checkmark" class="check"></ion-icon>
+          <ion-icon name="checkmark" class="check"></ion-icon>
         </div>
       </div>
     </div>
