@@ -141,7 +141,7 @@ body {
   top: 80px;
   width: 100vw;
   height: 100vh;
-  padding-bottom: 160px;
+  padding-bottom: 170px;
   overflow-y: scroll;
   overflow-x: hidden;
   background-color: #f3f3f3;
@@ -183,10 +183,11 @@ ul {
 }
 
 .sidebar {
+  display: none;
   background-color: #ffffff;
   position: fixed;
   top: 0px;
-  right: -260px;
+  right: 0px;
   width: 260px;
   height: 100vh;
   z-index: 5;
@@ -228,8 +229,8 @@ ul {
 }
 
 .active {
+  display: block;
   transition: all ease-out 0.5s;
-  transform: translateX(-260px);
 }
 
 .dark {
