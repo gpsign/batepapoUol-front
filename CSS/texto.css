@@ -20,7 +20,7 @@
   color: #aeaeae;
 }
 
-.sidebar{
+.sidebar {
   font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
@@ -30,11 +30,11 @@
   color: #000000;
 }
 
-.title{
+.title {
   font-weight: 700;
 }
 
-.sidebar ion-icon{
+.sidebar ion-icon {
   font-size: 30px;
   margin-left: 16px;
 }
@@ -46,11 +46,11 @@
   font-size: 14px;
   line-height: 16px;
   color: #000000;
-  overflow-wrap: break-word;
-  word-break: break-all;
+  word-wrap: normal;
+  word-break: normal;
 }
 
-.footer textarea {
+.footerInput textarea {
   font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
@@ -60,13 +60,18 @@
   overflow-wrap: normal;
 }
 
-.footer textarea::placeholder {
+.footerInput textarea::placeholder {
   font-family: "Roboto";
-  font-style: normal;
+  font-style: italic;
   font-weight: 400;
-  font-size: 14px;
-  line-height: 16px;
+  font-size: 18px;
   color: #000000;
+}
+
+.sending {
+  font-family: "Roboto";
+  font-weight: 300;
+  color: #656565;
 }
 
 .bold {
