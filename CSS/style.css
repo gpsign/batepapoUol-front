@@ -172,11 +172,10 @@ ul {
 }
 
 .sidebar {
-  display: none;
   background-color: #ffffff;
   position: fixed;
   top: 0px;
-  right: 0px;
+  right: -260px;
   width: 260px;
   height: 100vh;
   z-index: 5;
@@ -218,7 +217,7 @@ ul {
 }
 
 .active {
-  display: block;
+  transform: translateX(-260px);
   transition: all ease-out 0.5s;
 }
 
